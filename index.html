@@ -3,127 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Tricks - Mysite</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --text-color: #fff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --accent-blue: #00BFFF;
+            --accent-green: #4CAF50;
+            --card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background: linear-gradient(to right, #87CEEB, #00BFFF); /* Gradient background */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+            min-height: 100vh;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             overflow-x: hidden;
+            position: relative;
         }
-        h1 {
-            font-size: 3em;
-            margin-top: 20px;
-            color: #fff;
-            text-shadow: 2px 2px 4px #000;
+
+        /* --- Floating Background Shapes --- */
+        .shape {
+            position: absolute;
+            filter: blur(60px);
+            z-index: -1;
+            animation: floatShape 12s infinite alternate;
         }
-        p {
-            font-size: 1.5em;
-            color: #fff;
-            text-shadow: 1px 1px 2px #000;
+        .shape-1 {
+            top: 10%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: #ff00cc;
+            opacity: 0.2;
+            border-radius: 50%;
         }
-        h2 {
-            font-size: 2.5em;
-            margin: 20px 0;
-            color: #fff;
-            text-shadow: 1px 1px 2px #000;
+        .shape-2 {
+            bottom: 20%;
+            right: -5%;
+            width: 350px;
+            height: 350px;
+            background: #00BFFF;
+            opacity: 0.2;
+            border-radius: 50%;
+            animation-delay: -5s;
         }
-        a {
-            color: #FFD700; /* Gold color for links */
-            text-decoration: none;
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, 50px) rotate(10deg); }
         }
-        a:hover {
-            text-decoration: underline;
-        }
-        .fa {
-            margin-right: 10px;
-        }
-        .button {
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 20px 2px;
-            cursor: pointer;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
-        }
-        .button:hover {
-            transform: scale(1.05);
-        }
-        ul, ol {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            text-align: left; /* Align text to the left */
-            display: inline-block; /* Make the list inline-block to respect text-align */
-            background: rgba(255, 255, 255, 0.8);
+
+        /* --- Header --- */
+        header {
+            width: 100%;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 20px;
         }
-        li {
-            margin: 10px 0;
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
         }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
+        }
+
+        .header-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin: 0;
+        }
+
+        .subtitle {
+            margin-top: 5px;
+            color: rgba(255,255,255,0.7);
+            font-size: 1em;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-bottom: 50px;
+        }
+
+        /* --- Glass Cards --- */
+        .trick-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .trick-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 2em;
+            color: var(--accent-blue);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        /* --- Step List Styling --- */
+        .step-list {
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .step-list::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .step-list li::before {
+            content: ''; 
+            position: absolute;
+            left: -9px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* --- Buttons --- */
+        .yt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #FF0000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .yt-btn:hover {
+            transform: scale(1.05);
+            background: #cc0000;
+        }
+
+        /* --- Sleep Animation --- */
+        .sleep-container {
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .chef-icon {
+            font-size: 4em;
+            color: rgba(255,255,255,0.4);
+            position: relative;
+        }
+
+        .zzz {
+            position: absolute;
+            top: -10px;
+            right: 35%;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: rgba(255, 215, 0, 0.7);
+            animation: floatZ 2.5s infinite ease-out;
+        }
+        
+        .zzz:nth-child(2) { animation-delay: 0.8s; top: -25px; right: 30%; font-size: 1.2em; }
+        .zzz:nth-child(3) { animation-delay: 1.6s; top: -40px; right: 25%; font-size: 1em; }
+
+        @keyframes floatZ {
+            0% { opacity: 0; transform: translateY(0) translateX(0); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px) translateX(10px); }
+        }
+
+        .loading-text {
+            font-size: 1.5em;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
         @media (max-width: 600px) {
-            body {
-                font-size: 1em;
-            }
-            h1 {
-                font-size: 2em;
-            }
-            p, h2 {
-                font-size: 1.2em;
-            }
-            .button {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
+            h1 { font-size: 2em; }
+            .trick-card { padding: 25px; }
+            .back-btn span { display: none; }
         }
     </style>
 </head>
 <body>
-    <h1>Tricks</h1>
-    <p>Here are some cool tricks you can try:)</p>
-    <div id="content">
-        <h2>How you can host your website for free on Github</h2>
-        <ol>
-            <li><b>Step  1</b>: First of all you need to create a html file.</li>
-            <li><b>Step  2</b>: Go to notepad write down a html code for your website,
-             I think you are smart enough if you don't know how to code.(Use Chat Gpt)&#128556;</li>
-            <li><b>Step  3</b>: Save it as index.html (html file extension)> </li>
-            <li><b>Step  4</b>: Head on to github.com and create an account.</li>
-            <li><b>Step  5</b>: Enter a Repository name, select public then click on "Create a new repository".</li>
-            <li><b>Step  6</b>: Click on "upload an existing file".</li>
-            <li><b>Step  7</b>: Drag and drop your file or select your <u>index.html</u> file from File Manager.</li>
-            <li><b>Step  8</b>: Click on commit changes.</li>
-            <li><b>Step  9</b>: Now, go to Setting and select Pages then change the branch None to Main and save it</li>
-            <li><b>Step 10</b>: It will take maximum 1-2 minutes to bulid your website.</li>
-            <li><b>Step 11</b>: Your site link will appear on Github Pages, the link will appear as
-            "https://Your Github Username.github.io/Your repository name/"</li>
-            <li><b>Step 12</b>: That's all you need to do, to own a website.&#x1F609;</li>
-            <li><b>Step 13</b>: Thanks to Network Chuck, check out his
-            <a href="https://www.youtube.com/watch?v=EXfFBEuCAr0"> video </a>if you understand nothing &#128529;&#x1F612; </li>
+
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <header>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> <span>Home</span>
+        </a>
+        <div class="header-content">
+            <h1>Tricks & Tips</h1>
+            <p class="subtitle">Tech hacks you should try &#128526;</p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <article class="trick-card" data-tilt data-tilt-max="5">
+            <div class="card-header">
+                <i class="fab fa-github card-icon"></i>
+                <h2>Host Free Website on GitHub</h2>
+            </div>
             
-        </ol>
-        <h2>How you can summarize YouTube videos of any language</h2>
-        <ol>
-            <li>Step 1: Cooking..........................................................................................................................................................................................................................................................................</li>
-            <li>Step 2: </li>
-            <li>Step 3: </li>
-            <li>Step 4: </li>
-            <li>Step 5: </li>
-        </ol>
-        
+            <ol class="step-list">
+                <li><b>Create a file:</b> Open Notepad/VS Code and write your HTML code. (Use ChatGPT if you need help &#128556;).</li>
+                <li><b>Save it:</b> Name the file <span class="highlight">index.html</span>.</li>
+                <li><b>GitHub:</b> Go to github.com and create an account.</li>
+                <li><b>New Repo:</b> Create a "New Repository", give it a name, and set it to <b>Public</b>.</li>
+                <li><b>Upload:</b> Click "Upload an existing file" and drag your <u>index.html</u> in.</li>
+                <li><b>Commit:</b> Click the green "Commit changes" button.</li>
+                <li><b>Settings:</b> Go to the repo <b>Settings</b> > <b>Pages</b> (on the left sidebar).</li>
+                <li><b>Deploy:</b> Change "Branch" from <i>None</i> to <b>Main</b> and click Save.</li>
+                <li><b>Wait:</b> It takes 1-2 minutes. Your link will appear at the top!</li>
+            </ol>
+
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px; font-size: 0.9em;">Confused? Watch NetworkChuck explain it:</p>
+                <a href="https://www.youtube.com/watch?v=EXfFBEuCAr0" target="_blank" class="yt-btn">
+                    <i class="fab fa-youtube"></i> Watch Tutorial
+                </a>
+            </div>
+        </article>
+
+        <article class="trick-card" data-tilt data-tilt-max="5" style="border-color: rgba(255, 215, 0, 0.3);">
+            <div class="card-header">
+                <i class="fas fa-wand-magic-sparkles card-icon" style="color: #FFD700;"></i>
+                <h2>Summarize YouTube Videos</h2>
+            </div>
+            
+            <div class="sleep-container">
+                <div style="position: relative; display: inline-block;">
+                    <i class="fas fa-bed chef-icon"></i>
+                    <span class="zzz">Z</span>
+                    <span class="zzz">Z</span>
+                    <span class="zzz">Z</span>
+                </div>
+                <p class="loading-text">Chef is sleeping... &#x1F634;</p>
+                <p style="opacity: 0.7; margin-top: 10px; font-size: 0.9em;">Shhh! Come back later for the steps.</p>
+            </div>
+        </article>
+
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".trick-card"), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2
+        });
+    </script>
+
 </body>
 </html>
